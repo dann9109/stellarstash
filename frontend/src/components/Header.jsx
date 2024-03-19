@@ -1,27 +1,42 @@
-import { Navbar, Nav, Container } from 'react-bootstrap'; // Correct initial import
-import { NavbarBrand, NavbarToggle, NavbarCollapse } from 'react-bootstrap'; // Add missing components
+import React from 'react';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import letters2 from '../assets/letters2.png'; // Corrected path to logo.png
-
+import letters2 from '../assets/letters2.png';
 
 const Header = () => {
     return (
         <header>
             <Navbar bg="primary" variant="dark" expand="lg" collapseOnSelect>
                 <Container>
-                    <Navbar.Brand href="/">
-                        <img className="letter" src={letters2} alt="shop" />StellarStash</Navbar.Brand> {/* Corrected to Navbar.Brand */}
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" /> {/* Corrected to Navbar.Toggle */}
-                    <Navbar.Collapse id="basic-navbar-nav"> {/* Corrected to Navbar.Collapse */}
+                    {/* Ensure LinkContainer wraps a single child */}
+                    <LinkContainer to='/'>
+                        <Navbar.Brand href="/">
+                            {/* Make sure this is seen as a singular element */}
+                            <img className="letter" src={letters2} alt="shop" />
+                            StellarStash
+                        </Navbar.Brand>
+                    </LinkContainer>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            <Nav.Link href="/cart"><FaShoppingCart /> Cart</Nav.Link> {/* Corrected to Nav.Link */}
-                            <Nav.Link href="/login"><FaUser /> Sign In</Nav.Link> {/* Corrected to Nav.Link */}
+                            {/* Ensure each LinkContainer wraps a single Nav.Link */}
+                            <LinkContainer to='/cart'>
+                                <Nav.Link>
+                                    <FaShoppingCart /> Cart
+                                </Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to='/login'>
+                                <Nav.Link>
+                                    <FaUser /> Sign In
+                                </Nav.Link>
+                            </LinkContainer>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
         </header>
     );
-}
+};
 
 export default Header;
