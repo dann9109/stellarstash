@@ -1,16 +1,18 @@
 // Import necessary modules
 import express from 'express';
 import dotenv from 'dotenv';
-import products from './data/products.js';
-
 // Load environment variables
 dotenv.config();
+import connectDB from './config/db.js';
+import products from './data/products.js';
+// Define port from environment variable or fallback to 5000
+const port = process.env.PORT || 5000;
+
+// Connect to the database
+connectDB();
 
 // Create express app
 const app = express();
-
-// Define port from environment variable or fallback to 5000
-const port = process.env.PORT || 5000;
 
 // Root route that sends back a simple message
 app.get('/', (req, res) => {
