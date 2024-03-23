@@ -4,7 +4,8 @@ import dotenv from 'dotenv';
 // Load environment variables
 dotenv.config();
 import connectDB from './config/db.js';
-import products from './data/products.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import productRoutes from './routes/productRoutes.js';
 // Define port from environment variable or fallback to 5000
 const port = process.env.PORT || 5000;
 
@@ -19,27 +20,11 @@ app.get('/', (req, res) => {
     res.send('Server is ready');
 });
 
-// Route to get all products
-app.get('/api/products', (req, res) => {
-    res.json(products);
-});
+app.use('/api/products', productRoutes);
 
-// Route to get a specific product by its ID
-app.get('/api/products/:id', (req, res) => {
-    // Extract the product ID from the URL parameters
-    const productId = req.params.id;
+app.use(notFound);
+app.use(errorHandler);
 
-    // Find the product in the data array
-    const product = products.find((p) => p._id === productId);
-
-    if (product) {
-        // Send the product back if found
-        res.json(product);
-    } else {
-        // Send a 404 status code if the product is not found
-        res.status(404).send({ message: 'Product not found' });
-    }
-});
 
 // Start listening on the defined port
 app.listen(port, () => {
