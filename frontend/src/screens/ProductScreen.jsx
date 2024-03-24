@@ -4,35 +4,35 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import axios from 'axios';
+import { useGetProductDetailsQuery } from '../slices/productApiSlice';
+import Message from '../components/Message';
+import Product from '../components/Product';
+import Loader from '../components/Loader';
+
 
 const ProductScreen = () => {
-    const [product, setProduct] = useState();
-
-
     const { id: productId } = useParams();
+    
+    const { data: product, isLoading, error } = useGetProductDetailsQuery(productId);
 
+  
 
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const { data } = await axios.get(`/api/products/${productId}`);
-                setProduct(data);
-            } catch (error) {
-                console.error("Error fetching the product:", error.response);
-                // Log error.response to get more details
-            }
-        };
-        fetchProduct();
-    }, [productId]);
-
-    if (!product) {
-        return <div>Product not found</div>;
-    }
+    // if (!productId) {
+    //     return <div>Product not found</div>;
+    // }
 
     return (
         <>
             <Link className="btn btn-light my-3" to="/">Go Back</Link>
-            <Row>
+            {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant='danger'>
+          {error?.data?.message || error.error}
+        </Message>
+      ) : (
+                    <Row>
+
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid />
                 </Col>
@@ -71,7 +71,8 @@ const ProductScreen = () => {
                         </ListGroup.Item>
                     </ListGroup>
                 </Col>
-            </Row>
+            </Row>)}
+            
         </>
     );
 };
