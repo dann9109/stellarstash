@@ -9,7 +9,7 @@ import { useGetProductDetailsQuery } from '../slices/productApiSlice';
 import Message from '../components/Message';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
-import { addtoCart } from '../slices/cartSlice';
+import { addToCart } from '../slices/cartSlice';
 
 
 const ProductScreen = () => {
@@ -21,7 +21,7 @@ const ProductScreen = () => {
     const [qty, setQty] = useState(1);
 
     const addtoCartHandler = () => {
-        dispatch(addtoCart({...product, qty}));
+        dispatch(addToCart({...product, qty}));
         navigate('/cart');
     };
     
