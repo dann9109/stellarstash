@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import {apiSlice} from './slices/apiSlice';
+import { cartSliceReducer} from './slices/cartSlice';
 import { get } from 'mongoose';
 
 const store = configureStore({
