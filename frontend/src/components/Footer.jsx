@@ -8,8 +8,8 @@ const Footer = () => {  // Footer component
             <Container>
                 <Row>
                     <Col className="text-center py-3"> {/* Centered text */}
-                        <p>StellarStash &copy; {currentYear} StellarStash</p> {/* Footer text */}
-                        <p className="text-center py-3">&copy; 2024 StellarStash</p> {/* Footer text */}
+                        <p> &copy; {currentYear} StellarStash</p> {/* Footer text */}
+                        {/* <p className="text-center py-3">&copy; 2024 StellarStash</p> Footer text */}
                     </Col>
                 </Row>
             </Container>
