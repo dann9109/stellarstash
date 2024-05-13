@@ -28,9 +28,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Root route that sends back a simple message
-app.get('/', (req, res) => {
-    res.send('Server is ready');
-});
+// app.get('/', (req, res) => {
+//     res.send('Server is ready');
+// });
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
